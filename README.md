@@ -1,36 +1,53 @@
-# Web Scraping Challenge - Trimon
+# Web Scraping Challenge - Escavador (Equipe Trimon)
 
-Script simples em Python para coletar as últimas notícias da editoria de tecnologia do G1 e salvar em um banco de dados local.
+Este é um script em Python desenvolvido para coletar as últimas notícias da editoria de tecnologia do G1 e persistir os dados em um banco de dados local. O objetivo deste projeto é demonstrar a construção de um pipeline de dados funcional, utilizando boas práticas de organização e containerização.
 
-## O que o projeto faz
+## O que o robô faz
 
-- Acessa a página de tecnologia do G1.
-- Extrai títulos e links das notícias principais.
-- Salva os dados em um banco SQLite usando SQLAlchemy.
+- Realiza o scraping da página de tecnologia do portal G1.
+- Extrai títulos e links das notícias principais via seletores HTML.
+- Persiste as informações de forma estruturada em um banco SQLite.
 
-## Tecnologias usadas
+## Ferramentas utilizadas
 
-- Python 3
-- BeautifulSoup4 (parsing de HTML)
-- SQLAlchemy (ORM para persistência)
-- Requests (requisições HTTP)
+- Python 3.11+
+- BeautifulSoup4: Parsing de HTML e extração de dados.
+- SQLAlchemy: ORM para manipulação do banco de dados (Sintaxe 2.0).
+- Requests: Gerenciamento de requisições HTTP.
+- Docker: Containerização para garantir a portabilidade do ambiente.
 
-## Como rodar
+## Como rodar o projeto
 
-1. Crie o ambiente virtual:
+### Opção 1: Via Docker (Recomendado)
 
-```bash
-python -m venv venv
-```
+Se você tem o Docker instalado, não precisa configurar o Python manualmente. Basta rodar no terminal:
+
+1. Build da imagem:
+   `docker build -t scraper-escavador .`
+
+2. Execução do container:
+   `docker run --name bot-g1 scraper-escavador`
+
+---
+
+### Opção 2: Instalação Local
+
+Caso prefira rodar direto na máquina, siga os passos abaixo:
+
+1. Crie o ambiente virtual (venv):
+   `python -m venv venv`
 
 2. Ative o venv:
-   Windows: .\venv\Scripts\activate
-   Linux/Mac: source venv/bin/activate
+   Windows: `.\venv\Scripts\activate`
+   Linux/Mac: `source venv/bin/activate`
 
 3. Instale as dependências:
-   pip install -r requirements.txt
+   `pip install -r requirements.txt`
 
-4. Execute o scraper:
-   python scraper.py
+4. Execute o script:
+   `python scraper.py`
 
-O arquivo dados_g1.db será criado na pasta com as informações coletadas. Você pode usar um visualizador de SQLite para conferir os dados.
+## Observações técnicas
+
+- O arquivo `dados_g1.db` será gerado automaticamente na primeira execução.
+- O código utiliza o SQLAlchemy para garantir que a estrutura do banco seja criada via código (migrations-ready), facilitando a manutenção futura do pipeline.
